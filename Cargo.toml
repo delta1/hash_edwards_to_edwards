@@ -1,0 +1,15 @@
+[package]
+name = "hash_edwards_to_edwards"
+version = "0.1.0"
+authors = ["CoBloX Team <team@coblox.tech>"]
+edition = "2018"
+
+[dependencies]
+curve25519-dalek = "3"
+
+[dev-dependencies]
+hex = "0.4"
+
+[build-dependencies]
+bindgen = "0.58"
+cc = "1"
