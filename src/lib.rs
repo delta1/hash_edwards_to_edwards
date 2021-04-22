@@ -17,8 +17,10 @@ struct ge_p3 {
 }
 
 pub fn hash_point_to_point(point: EdwardsPoint) -> EdwardsPoint {
-    let bytes = point.compress();
+    hash_to_point(point.compress().as_bytes())
+}
 
+pub fn hash_to_point(bytes: &[u8; 32]) -> EdwardsPoint {
     let mut compressed = [0u8; 32];
     unsafe {
         let mut p3 = ge_p3 {
@@ -28,7 +30,7 @@ pub fn hash_point_to_point(point: EdwardsPoint) -> EdwardsPoint {
             T: [0; 10],
         };
 
-        hash_to_p3(bytes.as_bytes().as_ptr() as *const u8, &mut p3);
+        hash_to_p3(bytes.as_ptr() as *const u8, &mut p3);
         ge_p3_tobytes(compressed.as_mut_ptr(), &p3);
     };
 
